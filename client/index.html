@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Giraffe Evolution</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./simulation.css" />
+</head>
+<body class="bespoke simulation-app">
+  <header class="header"><h1 class="heading-small">Giraffe Evolution</h1></header>
+  <main class="main-layout">
+    <aside class="sidebar simulation-sidebar">
+      <section class="box card sidebar-card stats-card">
+        <h2 id="stats-title" class="heading-xxxsmall">Evolution</h2>
+        <div class="stat-grid">
+          <div class="stat"><span class="label-small">Generation</span><strong id="generation-value">0 / 24</strong></div>
+          <div class="stat"><span class="label-small">Grass</span><strong id="grass-value">12 / 12</strong></div>
+          <div class="stat"><span class="label-small">Average neck</span><strong id="avg-neck-value">3.9</strong></div>
+          <div class="stat"><span class="label-small">Fed</span><strong id="fed-value">12 / 12</strong></div>
+        </div>
+      </section>
+      <section class="box card sidebar-card chart-card">
+        <h2 class="heading-xxxsmall">Neck length over time</h2>
+        <canvas id="trend-canvas" width="320" height="108" aria-label="Chart of average neck length over generations"></canvas>
+      </section>
+    </aside>
+    <section class="content-area simulation-content">
+      <div class="scene-heading">
+        <div><span class="eyebrow">THE SAVANNA</span><h2 id="scene-title" class="heading-xxsmall">Watch the herd evolve</h2></div>
+        <div class="control-row">
+          <button id="play-btn" class="button button-primary button-small">Pause</button>
+          <button id="step-btn" class="button button-secondary button-small">Next</button>
+          <button id="reset-btn" class="button button-text button-small">Reset</button>
+        </div>
+      </div>
+      <nav class="mode-switch" aria-label="Course unit">
+        <button type="button" data-mode="fitness">1 Fitness</button>
+        <button type="button" data-mode="selection">2 Selection</button>
+        <button type="button" data-mode="crossover">3 Crossover</button>
+        <button type="button" data-mode="mutation">4 Mutation</button>
+        <button type="button" data-mode="evolution">5 Evolution</button>
+      </nav>
+      <div class="scene-wrap">
+        <canvas id="map-canvas" tabindex="0" aria-label="Giraffes feeding in a savanna. In Fitness mode, click a giraffe or use the arrow keys to inspect it."></canvas>
+        <div id="fitness-prompt" class="fitness-prompt" hidden>Click a giraffe</div>
+        <div id="fitness-overlay" class="fitness-overlay" hidden>
+          <strong>Giraffe <span id="fitness-number">1</span></strong>
+          <div><span>Neck <b id="fitness-neck">2</b></span><span>Food <b id="fitness-food">Grass</b></span><span>Fitness <b id="fitness-score">10</b></span></div>
+        </div>
+        <div id="selection-overlay" class="lesson-overlay" hidden>
+          <div class="lesson-panel">
+            <strong class="crossover-title">Highest fitness becomes a parent</strong>
+            <div class="tournament-cards">
+              <div class="contestant-card" data-contender="0"><span class="contestant-name"></span><b class="contestant-score"></b></div>
+              <div class="contestant-card" data-contender="1"><span class="contestant-name"></span><b class="contestant-score"></b></div>
+              <div class="contestant-card" data-contender="2"><span class="contestant-name"></span><b class="contestant-score"></b></div>
+            </div>
+          </div>
+        </div>
+        <div id="crossover-overlay" class="crossover-overlay" hidden aria-live="polite">
+          <div class="crossover-panel">
+            <strong class="crossover-title">Parents pass traits to an offspring</strong>
+            <div class="crossover-cards">
+              <div class="gene-card" id="parent-a-card"><span class="gene-role">Parent A</span><span class="gene-chip neck-chip" id="parent-a-neck"></span><span class="gene-chip energy-chip" id="parent-a-energy"></span></div>
+              <span class="inherit-arrow" aria-hidden="true">→</span>
+              <div class="gene-card child-card"><span class="gene-role">Offspring</span><span class="gene-chip neck-chip chosen" id="child-neck"></span><span class="gene-chip energy-chip chosen" id="child-energy"></span></div>
+              <span class="inherit-arrow" aria-hidden="true">←</span>
+              <div class="gene-card" id="parent-b-card"><span class="gene-role">Parent B</span><span class="gene-chip neck-chip" id="parent-b-neck"></span><span class="gene-chip energy-chip" id="parent-b-energy"></span></div>
+            </div>
+          </div>
+        </div>
+        <div id="mutation-overlay" class="lesson-overlay" hidden>
+          <div class="lesson-panel mutation-panel">
+            <strong class="crossover-title">A new neck length in the offspring</strong>
+            <div class="mutation-compare">
+              <div class="mutation-stage"><span>Inherited</span><b id="mutation-before-value"></b></div>
+              <span class="inherit-arrow" aria-hidden="true">→</span>
+              <div class="mutation-stage"><span>Offspring</span><b id="mutation-after-value"></b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="scene-caption"><span id="status-text" aria-live="polite">Grass is plentiful</span><span class="scene-legend"><span class="fed-pill"><i class="legend-mark fed"></i><b id="fed-legend">Fed 12</b></span><span class="hungry-pill"><i class="legend-mark hungry"></i><b id="hungry-legend">Hungry 0</b></span></span></div>
+      <p id="concept-note" class="concept-note">Each new herd inherits its neck lengths from the previous generation.</p>
+    </section>
+  </main>
+  <script type="module" src="./simulation.js"></script>
+</body>
+</html>
