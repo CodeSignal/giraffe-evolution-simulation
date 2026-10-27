@@ -1,27 +1,29 @@
 # Giraffe Evolution Simulation
 
-An interactive visual companion for a five-unit genetic algorithm course. **The student writes the algorithm; the simulation shows what their code produced.** Students implement fitness, parent selection, crossover, mutation, and the generation loop in Python. The course runner executes their code and sends the resulting giraffes and events to this page for visualization.
+An interactive visual companion for a five-unit genetic algorithm course. **Students edit one file, `solution.py`.** Each practice asks them to implement the function for that task, and the matching visualization shows the result of that function. The course runner executes their Python code and sends its output to this page.
 
 The scenario starts with mostly short-necked giraffes. As ground food becomes scarce, giraffes that can reach leaves may have an advantage. Traits change across generations through inheritance and mutation; an individual giraffe does not grow a longer neck during its lifetime.
 
-## What students implement
+## The learner workflow
 
-| Unit | Student code | What the student sees |
+For every practice, the learner opens `solution.py` and fills in the requested function. The task supplies its signature, inputs, starter code, and any helpers already completed. The learner does not edit this repository's JavaScript, simulation data, or a separate configuration file. A practice focuses on one function; later practices can provide earlier functions in the starter file when they are needed.
+
+| Mode | Function implemented in `solution.py` | What the student sees |
 | --- | --- | --- |
-| 1 · Fitness | Represent giraffes and calculate food access and fitness. | Click a giraffe to inspect the food it reached and the score returned by the student's function. |
-| 2 · Selection | Run a three-contender tournament to choose parents. | See the contenders, their scores, and the selected giraffe. |
-| 3 · Crossover | Choose which parent supplies the child's neck length and energy efficiency. | See both parents beside their child and where each trait came from. |
-| 4 · Mutation | Apply bounded changes to inherited traits. | Compare a giraffe before and after a neck mutation. |
-| 5 · Evolution | Combine the functions into a generation loop. | Watch the herd change over generations as ground food declines. |
+| 1 · Fitness | `evaluate_fitness(...)` calculates a giraffe's food access and score. | Click a giraffe to inspect the food it reached and the score returned by the function. |
+| 2 · Selection | `tournament_selection(...)` chooses a parent from three contenders. | See those giraffes, their scores, and the selected parent. |
+| 3 · Crossover | `crossover(...)` chooses which parent supplies each trait to a child. | See both parents beside the child and where its traits came from. |
+| 4 · Mutation | `mutate(...)` changes inherited traits within their bounds. | Compare the giraffe before and after the change. |
+| 5 · Evolution | `evolve(...)` combines the operations over generations. | Watch the resulting herd change as ground food declines. |
 
-This is an incremental coding course: each unit builds on the previous functions. A changed fitness function should change the displayed scores; different selection, crossover, or mutation results should change the corresponding giraffes and events. The full evolution mode shows the outcome of those combined decisions.
+These names describe the intended functions; each course task defines the exact signature and return value. The course runner supplies the rest of the scenario, converts the function's output into the visualization data, and opens the corresponding mode. If a task implements only selection, for example, the runner provides the evaluated giraffes and uses the student's selection result to determine which parent the mode highlights.
 
 ## How learner code reaches the simulation
 
 The visualizer does not run Python. A CodeSignal course runner needs to:
 
-1. Execute the student's Python solution against the practice input.
-2. Collect the evaluated population and, where relevant, selection, crossover, and mutation events.
+1. Execute the requested function in the student's `solution.py` against the practice input, using supplied helpers for the other operations.
+2. Collect that function's result and any needed selection, crossover, or mutation event.
 3. Convert those results into the generation-history format in [SIMULATION-CONTRACT.md](SIMULATION-CONTRACT.md).
 4. Load the history into the visualizer, for example with `window.loadGiraffeEvolution(history)`.
 
