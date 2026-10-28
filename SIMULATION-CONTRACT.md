@@ -4,7 +4,7 @@ The page opens with a deterministic demonstration (seed `7`). A herd of 12 begin
 
 The visuals can also replay a learner's genetic algorithm output. The learner should produce the generation history; the page handles drawing, controls, statistics, and playback. A giraffe's neck does not change during its lifetime. New neck lengths appear in offspring through inheritance and mutation.
 
-The current preview runs the built-in demonstration. This repository does not yet execute learner functions or convert their return values into generation history. The course runner must call the learner's functions, build the history below, and pass it to the page. A changed fitness function then changes the displayed scores and feeding outcomes when its calculated values are supplied. Selection, crossover, and mutation modes use the learner's event records when present; otherwise they show demonstration examples.
+The page runs the built-in demonstration until it receives learner history. The current Fitness practice calls `energy_cost` from `solution.py` and writes `/giraffe-history.json` into the served build directory. The page checks that file every two seconds, so changing `energy_cost` and pressing Run changes the displayed fitness scores. Other course runners must likewise call the learner's functions and build the history below. Selection, crossover, and mutation modes use the learner's event records when present; otherwise they show demonstration examples.
 
 ## Learner history format
 

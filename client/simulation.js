@@ -699,3 +699,21 @@ window.addEventListener('resize', () => renderScene());
 requestAnimationFrame(animate);
 if (Array.isArray(window.__GIRAFFE_HISTORY__)) loadLearnerHistory(window.__GIRAFFE_HISTORY__);
 else setMode(mode, false);
+
+// The course runner writes this file after executing solution.py. Watch it so
+// the open CodeSignal preview updates even when the host does not reload it.
+let lastHistoryText = null;
+async function refreshLearnerHistory() {
+  try {
+    const response = await fetch('/giraffe-history.json', { cache: 'no-store' });
+    if (!response.ok) return;
+    const text = await response.text();
+    if (text === lastHistoryText) return;
+    lastHistoryText = text;
+    loadLearnerHistory(JSON.parse(text));
+  } catch (error) {
+    console.error('Could not read learner evolution history:', error);
+  }
+}
+void refreshLearnerHistory();
+setInterval(refreshLearnerHistory, 2000);

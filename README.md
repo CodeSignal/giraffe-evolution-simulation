@@ -27,7 +27,7 @@ The visualizer does not run Python. A CodeSignal course runner needs to:
 3. Convert those results into the generation-history format in [SIMULATION-CONTRACT.md](SIMULATION-CONTRACT.md).
 4. Load the history into the visualizer, for example with `window.loadGiraffeEvolution(history)`.
 
-The repository currently opens with a deterministic demonstration so authors can preview all five modes. **The runner bridge described above is not implemented here yet.** Until the course runner supplies a student's history, the animation shows demonstration data rather than the student's code output.
+The repository opens with a deterministic demonstration when no learner history is available. The current Fitness practice writes `/giraffe-history.json` after running `solution.py`; the page reloads that file while the preview is open. Other practices still need their own runner bridges to turn selection, crossover, mutation, and evolution results into history and event records.
 
 ## Run locally
 
