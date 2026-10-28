@@ -30,7 +30,7 @@ The example shows one giraffe for brevity; a real `population` must contain 12. 
 
 ## Course unit modes
 
-Choose the activity for a practice by launching the page with `?unit=1` through `?unit=5`: Fitness, Selection, Crossover, Mutation, or full Evolution. This opens only that activity and hides the mode buttons from learners. The course host can instead set `window.__GIRAFFE_UNIT__ = 3` before the module loads, or call `window.setGiraffeUnit(3)` later. For an author preview with the mode buttons visible, use `?unit=3&modePicker=1` (or omit `unit` entirely).
+Choose the activity in the course's `setup.sh` by writing `dist/practice-config.json` after the build, with a `unit` value of `fitness`, `selection`, `crossover`, `mutation`, or `evolution`. The page reads that file at startup. The included default selects Fitness. A URL parameter such as `?unit=3` or `?practiceUnit=3` overrides the file; the course host can also set `window.__GIRAFFE_UNIT__ = 3` before the module loads, or call `window.setGiraffeUnit(3)` later. The five mode buttons are hidden unless an author explicitly adds `?modePicker=1`.
 
 In Fitness, learners click a giraffe to inspect its food and score; the focused canvas also supports arrow-key selection. Selection shows three competing giraffes and marks the winner. Crossover shows both parents beside their offspring. Mutation shows the inherited and mutated neck lengths as giraffes. `Next` steps through examples in units 2–4; `Play` cycles through them. Unit 5 plays the complete evolution run with its herd visible during crossover. If the learner history does not include selection, crossover, or mutation events, those unit modes use the demonstration examples.
 

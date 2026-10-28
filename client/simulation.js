@@ -25,9 +25,16 @@ const unitNotes = {
 };
 const unitAliases = { '1': 'fitness', '2': 'selection', '3': 'crossover', '4': 'mutation', '5': 'evolution' };
 const launchParams = new URLSearchParams(window.location.search);
-const requestedUnit = launchParams.get('practiceUnit') ?? launchParams.get('unit') ?? window.__GIRAFFE_UNIT__;
-const showModePicker = launchParams.get('modePicker') === '1' || requestedUnit == null;
-let mode = unitTitles[requestedUnit] ? requestedUnit : unitAliases[requestedUnit] ?? 'evolution';
+let configuredUnit = null;
+try {
+  const response = await fetch('/practice-config.json', { cache: 'no-store' });
+  if (response.ok) configuredUnit = (await response.json()).unit;
+} catch {
+  // A local preview without a config still opens the first practice mode.
+}
+const requestedUnit = launchParams.get('practiceUnit') ?? launchParams.get('unit') ?? window.__GIRAFFE_UNIT__ ?? configuredUnit;
+const showModePicker = launchParams.get('modePicker') === '1';
+let mode = unitTitles[requestedUnit] ? requestedUnit : unitAliases[requestedUnit] ?? 'fitness';
 let lessonExamples = [];
 let lessonStep = 0;
 let highlightedIds = new Map();

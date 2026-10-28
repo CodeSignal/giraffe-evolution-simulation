@@ -36,7 +36,9 @@ npm install
 npm run dev
 ```
 
-Open the local URL printed by Vite. Use `?unit=1` through `?unit=5` to launch one practice activity without a mode picker:
+Open the local URL printed by Vite. The page reads `/practice-config.json` at startup; the included file selects Fitness. A course's `setup.sh` can write `dist/practice-config.json` after `npm run build` to preselect its mode, for example `{"unit":"selection"}`. Learners see that mode without the five mode buttons.
+
+For local authoring, `?unit=1` through `?unit=5` (or `?practiceUnit=1` through `?practiceUnit=5`) overrides the configured mode:
 
 | Unit | Activity |
 | --- | --- |
@@ -46,7 +48,7 @@ Open the local URL printed by Vite. Use `?unit=1` through `?unit=5` to launch on
 | 4 | Mutation |
 | 5 | Full evolution |
 
-For an author preview with all five buttons, use `?unit=1&modePicker=1`.
+For an author preview with all five buttons, use `?modePicker=1`. The buttons are hidden unless that parameter is present.
 
 See [SIMULATION-CONTRACT.md](SIMULATION-CONTRACT.md) for the exact history fields, event format, and launch configuration. Each practice should select its unit mode when it starts; the mode picker is for author preview.
 
